@@ -1,18 +1,28 @@
-import { of, range } from 'rxjs'; 
-import { map, filter, tap } from 'rxjs/operators';
+import { of, range, interval } from 'rxjs'; 
+import { map, filter, tap, take, skip } from 'rxjs/operators';
 
 console.clear();
 
 let isFizz = (i) => !(i%3);
 let isBuzz = (i) => !(i%5); 
 
-// Attempt 2: Success
+// Attempt 3: Success
+const source = interval(10);
+
+source.pipe(
+  skip(1),
+  take(30),
+  tap(x => isFizz(x) && console.log(`%cFizz ${x}`, 'font-weight: bold; color: red')),
+  tap(x => isBuzz(x) && console.log(`%cBuzz ${x}`, 'font-weight: bold; color: green'))
+).subscribe();
+
+/* // Attempt 2: Success
 const source = range(1, 15);
 
 source.pipe(
   tap(x => isFizz(x) && console.log(`%cFizz ${x}`, 'font-weight: bold; color: red')),
   tap(x => isBuzz(x) && console.log(`%cBuzz ${x}`, 'font-weight: bold; color: green'))
-).subscribe();
+).subscribe(); */
 
 /* 
 // Attempt 1: Partial
