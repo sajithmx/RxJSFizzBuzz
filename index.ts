@@ -6,7 +6,18 @@ console.clear();
 let isFizz = (i) => !(i % 3);
 let isBuzz = (i) => !(i % 5);
 
-// Attempt 6: Success
+
+// Attempt 7: Success
+const source = range(1, 30);
+
+source.pipe(
+  map(x => isFizz(x) ? [x, 'Fizz'] : [x, '']),
+  map(([x, y]) => isBuzz(x) ? [x, y+'Buzz'] : [x, y]),
+  map(([x, y]) => y ? y : x)
+).subscribe((x) =>  console.log(`%c${x}`, 'font-weight: bold; color: red'));
+
+
+/* // Attempt 6: Success
 const source = range(1, 15, asyncScheduler);
 
 const fizz = source.pipe(
@@ -25,7 +36,7 @@ merge(fizz, buzz)
   .subscribe(x => {
     console.log(`${x}`, 'font-weight: bold; color: blue');
     console.log('');
-  });
+  }); */
 
 /* // Attempt 5: Partial
 const source = range(1, 15);
